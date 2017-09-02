@@ -1,0 +1,56 @@
+<h1>Sign up 
+  <span style="font-size: 12px; color: red;">(*=required)</span>
+</h1>
+
+<section>
+  <div style="width: 70%; margin: 0 auto;">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %><br />
+
+      <div class="field">
+        <%= f.label "nickname" %>
+        <%= f.text_field :nickname, autofocus: true %>
+        <span style="color: red;">*</span>
+      </div>
+
+      <div class="field">
+        <%= f.label "email" %>
+        <%= f.email_field :email, autofocus: true %>
+        <span style="color: red;">*</span>
+      </div>
+
+      <div class="field">
+        <%= f.label "password" %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+        <span style="color: red;">*</span>
+      </div>
+
+      <div class="field">
+        <%= f.label "password_confirmation" %>
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        <span style="color: red;">*</span>
+      </div>
+
+      <div class="field">
+        <%= f.label "introduce yourself" %>
+        <%= f.text_area :introduction, :size=>"60x10" %>
+      </div>
+
+      <div class="field">
+        <%= image_tag @user.image.url if @user.image? %>
+        <%= f.label "image" %>
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign up" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</section>

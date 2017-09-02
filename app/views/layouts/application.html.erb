@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TaviTomo!</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  	<header>
+      <div class="clearfix" style="padding: 10px 20px;">
+          <p style="float: left; font-size: 20px; color: #008b8b; font-weight: bold;">Tavi Tomo！</p>
+  		<% if user_signed_in? %>
+          <p style="float: right; margin: 20px 0;">
+            <%= link_to "TimeLine", posts_path %> |
+            <%= link_to 'NewPost', new_post_path %> |
+            <%= link_to "AllUsers", users_path %> |
+            <%= link_to "MyProfile", user_path(current_user) %> |
+            <%= link_to "EditProfile", edit_user_registration_path %> |
+  		      <%= link_to "LogOut", destroy_user_session_path, method: :delete %>
+          </p>
+          <p style="float: right; margin: 20px 10px;">
+            <span style="color: #008b8b;"> Logged in as <%=link_to current_user.nickname, user_path(current_user) %></span> |
+          </p>
+        </div>
+  		<% else %>
+          <p style="float: right; margin: 20px 0;"><%= link_to "NewAccount", new_user_registration_path %> |
+    			<%= link_to "LogIn", new_user_session_path %>
+  		<% end %>
+  	</header>
+    <div style="background-color: rgba(250, 235, 215,0.7); min-height: 1000px; padding-top: 64px;">
+      <%= yield %>
+    </div>
+  </body>
+</html>

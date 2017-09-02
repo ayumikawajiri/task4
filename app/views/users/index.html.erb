@@ -1,0 +1,22 @@
+<h1>All Users</h1>
+
+<section>
+  <table style="width: 60%; margin: 0 auto;">
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td align="right" style="width: 50%; height: 30px; padding-right: 40px;">
+            <%= link_to user.nickname, "/users/#{user.id}" %>
+          </td>
+          <% if user.image? %>
+            <td>
+              <div style="width: 50%; padding: 2px;"><%= image_tag user.image.url %></div>
+            </td>
+          <% else %>
+            <td>No image</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

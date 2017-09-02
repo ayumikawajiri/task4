@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @post.title %></h1>
+
+<section>
+	<p style="text-align: right;">
+		Posted by <%= link_to @post.user.nickname, "/users/:id" %> on <%= @post.created_at.strftime("%Y/%m/%d") %>
+	</p>
+
+	<p>
+		<br /><br />
+		<p><%= simple_format(@post.body) %></p>
+	</p>
+
+	<div style="text-align: right;">
+		<% if current_user.id == @post.user_id %>
+			<%= link_to 'Edit', edit_post_path(@post) %> |
+			<%= link_to 'Delete', @post, method: :delete, data:{ confirm: 'Are you sure?' } %> |
+		<% end %>
+		<%= link_to 'Back', posts_path %>
+	</div>
+
+	<div style="width: 100%; height: 50px; border-bottom: 1px solid #696969;"></div>
+
+	<h4>Comments</h4>
+
+	<% if @post.comments.count == 0 %>
+		<p style="text-align: center;">No Comments</p>
+	<% else %>
+		<% @post.comments.reverse_each do |comment| %>
+			<div>
+				by <%= comment.nickname %>
+			</div>
+			<div>
+				<%= simple_format(comment.body) %>
+			</div>
+			<div style="text-align: right;">
+				<%= link_to "delete comment", "/posts/#{comment.post.id}/comments/#{comment.id}", method: :delete, data: {confirm: "Are you sure?"} %>
+			</div>
+		<% end %>
+	<% end %>
+
+	<div style="width: 100%; height: 50px; border-bottom: 1px solid #696969;"></div>
+
+	<h4>Add Comment</h4>
+	<%= form_for([@post, @post.comments.build]) do |f| %>
+		<div>
+			<%= f.label :nickname %>
+			<%= f.text_field :nickname %>
+		</div>
+		<div>
+			<%= f.label :comment %>
+			<%= f.text_area :body, :size=>"60x10" %>
+		</div>
+		<div>
+			<%= f.submit "Comment" %>
+		</div>
+	<%end %>
+</section>

@@ -1,0 +1,62 @@
+<% if current_user.id == @user.id %>
+	<h1>MyProfile<span style="font-size: 16px; margin-left: 30px;"><%= link_to 'Edit', edit_user_registration_path %></span></h1>
+	<section>
+		<div style="width: 60%; margin: 0 auto;">
+			<div class="clearfix">
+				<div style="float: left;">
+					<% if current_user.image? %>
+    		     		<td><%= image_tag current_user.image.url %></td>
+        			<% end %>
+				</div>
+				<div style="float: left;">
+					<div style="font-size: 20px; padding: 10px;">
+						<%= current_user.nickname %>
+					</div>
+				</div>
+			</div>
+
+			<div style="width: 100%; height: 30px;"></div>
+
+			<p>registration date: <%= @user.created_at.strftime("%Y/%m/%d") %></p>			
+			<p style="color: #4169e1;">Email Address:</p>
+			<p><%= current_user.email %></p>
+
+			<p style="color: #4169e1;">Introduction:</p>
+			<% if current_user.introduction? %>
+				<p><%= simple_format(current_user.introduction) %></p>
+			<% else %>
+				<p>(Coming Soon....)</p>
+			<% end %>
+		</div>
+	</section>
+<% else %>
+	<h1><%= @user.nickname %>'s Profile</h1>
+	<section>
+		<div style="width: 60%; margin: 0 auto;">
+			<div class="clearfix">
+				<div style="float: left;">
+					<% if @user.image? %>
+    		     		<td><%= image_tag @user.image.url %></td>
+        			<% end %>
+				</div>
+				<div style="float: left;">
+					<div style="font-size: 20px; padding: 10px;">
+						<%= @user.nickname %>
+					</div>
+				</div>
+			</div>	
+
+		<div style="width: 100%; height: 30px;"></div>
+
+		<p>registration date: <%= @user.created_at.strftime("%Y/%m/%d") %></p>
+		<p style="color: #4169e1;">Introduction:</p>
+			<% if @user.introduction? %>
+				<p><%= simple_format(@user.introduction) %></p>
+			<% else %>
+				<p style="text-align: center;">(Coming Soon....)</p>
+			<% end %>	
+		</div>
+
+	</section>
+
+<% end %>
